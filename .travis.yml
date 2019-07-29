@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true mzamith/docker-sandbox npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-sandbox"
+  env: "DockerSandbox-env"
+  bucket_name: "elasticbeanstalk-us-east-2-883092001737"
+  bucket_path: "docker-sandbox"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
